@@ -1,64 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:wall/utils/app_buttons.dart';
 
-class BannerWidget extends StatelessWidget {
-  
+class ChatBubble extends StatelessWidget {
   final String message;
-  final String messageDate;
-  BannerWidget({
-    
-    super.key,
+  final bool isSentByMe; // Determines if the message is sent by the user
+
+  const ChatBubble({
     required this.message,
-    required this.messageDate,  
-    });
+    required this.isSentByMe,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10),
-      child: DecoratedBox(
+    return Align(
+      alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 14),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
+          color: isSentByMe ? Colors.grey.shade800 : Colors.grey.shade300,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12),
+            topRight: Radius.circular(12),
+            bottomLeft: isSentByMe ? Radius.circular(12) : Radius.circular(0),
+            bottomRight: isSentByMe ? Radius.circular(0) : Radius.circular(12),
+          ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                message,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF424242), // Colors.grey.shade800
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                messageDate,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.grey.shade600,
-                ),
-              ),
-              const SizedBox(height: 15),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
-                  AppButtons(
-                    icon: Icon(Icons.edit, color: Colors.white),
-                    color: Colors.blueAccent,
-                  ),
-                  SizedBox(width: 15),
-                  AppButtons(
-                    icon: Icon(Icons.delete, color: Colors.white),
-                    color: Colors.redAccent,
-                  ),
-                ],
-              ),
-            ],
+        child: Text(
+          message,
+          style: TextStyle(
+            color: isSentByMe ? Colors.white : Colors.black,
           ),
         ),
       ),
