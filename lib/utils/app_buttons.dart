@@ -12,13 +12,21 @@ class AppButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return MaterialButton(
       onPressed: () {},
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      focusColor: Colors.grey.shade400,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: Container(
+          height: 50,
+          width: 50,
+          color: color,
+          padding: EdgeInsets.all(10),
+          child: icon,
+        ),
       ),
-      child: icon,
     );
   }
 }
